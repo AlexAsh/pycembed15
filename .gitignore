@@ -56,3 +56,7 @@ target/
 *.swp
 *.bak
 *~
+
+# PyCharm
+.idea/
+
