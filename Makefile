@@ -3,7 +3,7 @@ LDLIBS+=-lpython2.7
 
 GENERATED=str *.so woex woexp.c
 
-all:	str repeat.so woex woexp.so
+all:	str list repeat.so woex woexp.so
 
 %.c:	%.pyx
 	cython $< -o $@
@@ -22,6 +22,7 @@ demo:	all
 
 test:	all
 	valgrind ./str qwert 1 3 4
+	valgrind ./list qwe rty uio asd fgh 1 4 4
 	valgrind python testrepeat.py
 	python -c 'import repeat; print dir(repeat); help(repeat)' | cat
 	valgrind python testwoexp.py
