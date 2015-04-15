@@ -1,4 +1,4 @@
-from posix.types cimport dev_t, ino_t, mode_t, nlink_t, uid_t, gid_t, dev_t, off_t, blksize_t, blkcnt_t, time_t
+from posix.types cimport dev_t, ino_t, mode_t, nlink_t, uid_t, gid_t, off_t, blksize_t, blkcnt_t, time_t
 
 cdef extern from "sys/types.h":
     cdef struct stat "stat":
@@ -17,4 +17,15 @@ cdef extern from "sys/types.h":
         time_t    st_ctime   # time of last status change
 
 cdef extern from "ftw.h":
-    int ftw(const char *dirpath, int (*fn)(const char *fpath, const stat *sb, int typeflag), int nopenfd)
+    cdef struct FTW "FTW":
+        int base
+        int level
+    
+    int ftw(const char *dirpath, 
+	        int (*fn)(const char *fpath, const stat *sb, int typeflag),
+	        int nopenfd)
+	
+    int nftw(const char *dirpath, 
+             int (*fn) (const char *fpath, const stat *sb,
+                        int typeflag, FTW *ftwbuf), 
+             int nopenfd, int flags)
