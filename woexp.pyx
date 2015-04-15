@@ -23,6 +23,7 @@ cdef class WordExp:
 
     def expand(self, char *s, int flags=WRDE_REUSE):
         '''expand(s, flags=WRDE_REUSE)\n\nPerform wordexp(s, self.data, flags)'''
+        woexp.wordfree(&self.data)
         if woexp.wordexp(s, &self.data, flags):
             raise MemoryError("Cannot perform expansion")
 
